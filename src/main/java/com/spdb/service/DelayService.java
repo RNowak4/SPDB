@@ -1,9 +1,9 @@
-package com.example.demo.service;
+package com.spdb.service;
 
-import com.example.demo.domain.AnalyzedData;
-import com.example.demo.domain.Cords;
-import com.example.demo.domain.DataFromDB;
-import com.example.demo.domain.OutputData;
+import com.spdb.domain.AnalyzedData;
+import com.spdb.domain.Cords;
+import com.spdb.domain.DataFromDB;
+import com.spdb.domain.OutputData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

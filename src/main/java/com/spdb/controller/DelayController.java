@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.spdb.controller;
 
-import com.example.demo.domain.AnalyzedData;
-import com.example.demo.service.DelayService;
+import com.spdb.domain.AnalyzedData;
+import com.spdb.service.DelayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

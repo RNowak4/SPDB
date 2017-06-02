@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.spdb.service;
 
-import com.example.demo.domain.DataFromDB;
+import com.spdb.domain.DataFromDB;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
