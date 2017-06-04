@@ -9,13 +9,13 @@ import java.util.Optional;
 
 @Component
 public class CachedData {
-    private Map<String, AnalyzedData> cachedDataMap = new HashMap<>();
+    private Map<CachedDataKey, AnalyzedData> cachedDataMap = new HashMap<>();
 
-    public synchronized Optional<AnalyzedData> getCachedData(final String lineId) {
-        return Optional.of(cachedDataMap.get(lineId));
+    public synchronized Optional<AnalyzedData> getCachedData(final CachedDataKey cachedDataKey) {
+        return Optional.of(cachedDataMap.get(cachedDataKey));
     }
 
-    public synchronized void putCachedData(final String lineId, final AnalyzedData analyzedData) {
-        cachedDataMap.put(lineId, analyzedData);
+    public synchronized void putCachedData(final CachedDataKey cachedDataKey, final AnalyzedData analyzedData) {
+        cachedDataMap.put(cachedDataKey, analyzedData);
     }
 }

@@ -9,6 +9,7 @@ import java.util.Date;
 @Setter
 public class DataFromDB {
     // cord przystanku
+    private int hour;
     private String x, y;
     private String stopId;
     private Date scheduledDeparture;

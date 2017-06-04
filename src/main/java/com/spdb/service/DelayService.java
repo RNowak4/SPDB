@@ -21,8 +21,8 @@ public class DelayService {
         this.dataBaseService = dataBaseService;
     }
 
-    public AnalyzedData countDelays(String lineName, Date startHour, Date endHour) {
-        final List<DataFromDB> dataFromDB = dataBaseService.getData(lineName, startHour, endHour);
+    public AnalyzedData countDelays(String lineName, int hour) {
+        final List<DataFromDB> dataFromDB = dataBaseService.getData(lineName, hour);
         final Map<String, Long> delays = new HashMap<>();
         final Map<String, Cords> stops = new HashMap<>();
         final Map<String, Long> stopsCount = new HashMap<>();
@@ -49,12 +49,13 @@ public class DelayService {
             stops.putIfAbsent(stopId, new Cords(data.getX(), data.getY()));
         }
 
-        return joinData(delays, stops, stopsCount);
+        return joinData(delays, stops, stopsCount, hour);
     }
 
     private AnalyzedData joinData(final Map<String, Long> delays, final Map<String, Cords> stops,
-                                  final Map<String, Long> stopsCount) {
+                                  final Map<String, Long> stopsCount, final int hour) {
         final AnalyzedData analyzedData = new AnalyzedData();
+        analyzedData.setHour(hour);
 
         for (String stopId : delays.keySet()) {
             final OutputData outputData = new OutputData();
@@ -70,9 +71,5 @@ public class DelayService {
         }
 
         return analyzedData;
-    }
-
-    public AnalyzedData countDelays(String lineName) {
-        return countDelays(lineName, null, null);
     }
 }

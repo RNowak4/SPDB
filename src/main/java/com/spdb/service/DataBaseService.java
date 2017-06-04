@@ -3,12 +3,8 @@ package com.spdb.service;
 import com.spdb.domain.DataFromDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +25,7 @@ public class DataBaseService {
             "  csipdaystopping.stoppoint_loid = csipstoppoint.loid AND\n" +
             "  csipdaystopping.line_loid = csipline.loid AND\n" +
             "  csipline.name = ? AND\n" +
+            "  date_part('hour', csipdaystopping.scheduleddeparture) = ? AND\n" +
             "  csipdaystopping.realdeparture is not null;\n";
 
     private final static String GET_ALL_LINE_NAMES_QUERY = "select name from csipline;";
@@ -38,9 +35,9 @@ public class DataBaseService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<DataFromDB> getData(final String lineName, final Date startHour, final Date endHour) {
+    public List<DataFromDB> getData(final String lineName, final int hour) {
 
-        return jdbcTemplate.query(GET_DATA_QUERY, new Object[]{lineName}, (resultSet, i) -> {
+        return jdbcTemplate.query(GET_DATA_QUERY, new Object[]{lineName, hour}, (resultSet, i) -> {
             final DataFromDB data = new DataFromDB();
             data.setLineName(lineName);
             data.setRealDeparture(resultSet.getTime("realdeparture"));
@@ -55,12 +52,7 @@ public class DataBaseService {
 
     public List<String> getAllLinesNames() {
 
-        return jdbcTemplate.query(GET_ALL_LINE_NAMES_QUERY, new Object[]{}, new RowMapper<String>() {
-
-            @Override
-            public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getString("name");
-            }
-        });
+        return jdbcTemplate.query(GET_ALL_LINE_NAMES_QUERY, new Object[]{},
+                (resultSet, i) -> resultSet.getString("name"));
     }
 }
