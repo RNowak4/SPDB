@@ -18,7 +18,7 @@ public class CreateCacheTask {
     private DelayService delayService;
     private CachedData cachedData;
 
-    static Logger log = Logger.getLogger(CreateCacheTask.class.getName());
+    private static Logger log = Logger.getLogger(CreateCacheTask.class.getName());
 
     @Autowired
     public CreateCacheTask(DataBaseService dataBaseService, DelayService delayService, CachedData cachedData) {

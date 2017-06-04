@@ -12,7 +12,11 @@ public class CachedData {
     private Map<CachedDataKey, AnalyzedData> cachedDataMap = new HashMap<>();
 
     public synchronized Optional<AnalyzedData> getCachedData(final CachedDataKey cachedDataKey) {
-        return Optional.of(cachedDataMap.get(cachedDataKey));
+        final AnalyzedData cachedData = cachedDataMap.get(cachedDataKey);
+        if (cachedData == null) {
+            return Optional.empty();
+        } else
+            return Optional.of(cachedDataMap.get(cachedDataKey));
     }
 
     public synchronized void putCachedData(final CachedDataKey cachedDataKey, final AnalyzedData analyzedData) {
