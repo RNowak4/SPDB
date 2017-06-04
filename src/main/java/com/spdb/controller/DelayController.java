@@ -26,4 +26,10 @@ public class DelayController {
 
         return delayService.countDelays(lineName, startHour, endHour);
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/delay1")
+    public AnalyzedData countDelaysForLinea(@RequestParam("line") final String lineName) {
+
+        return delayService.countDelays(lineName);
+    }
 }

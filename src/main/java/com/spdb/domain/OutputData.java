@@ -10,4 +10,5 @@ public class OutputData {
     private String x,y;
     // seconds
     private long delaySum;
+    private long stopCount;
 }

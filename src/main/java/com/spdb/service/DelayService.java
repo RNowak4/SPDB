@@ -25,6 +25,7 @@ public class DelayService {
         final List<DataFromDB> dataFromDB = dataBaseService.getData(lineName, startHour, endHour);
         final Map<String, Long> delays = new HashMap<>();
         final Map<String, Cords> stops = new HashMap<>();
+        final Map<String, Long> stopsCount = new HashMap<>();
 
         for (final DataFromDB data : dataFromDB) {
             long depDate = data.getScheduledDeparture().getTime();
@@ -39,13 +40,20 @@ public class DelayService {
                 delays.put(stopId, diff);
             }
 
+            if (stopsCount.containsKey(stopId)) {
+                stopsCount.put(stopId, stopsCount.get(stopId) + 1);
+            } else {
+                stopsCount.put(stopId, 1L);
+            }
+
             stops.putIfAbsent(stopId, new Cords(data.getX(), data.getY()));
         }
 
-        return joinData(delays, stops);
+        return joinData(delays, stops, stopsCount);
     }
 
-    private AnalyzedData joinData(final Map<String, Long> delays, final Map<String, Cords> stops) {
+    private AnalyzedData joinData(final Map<String, Long> delays, final Map<String, Cords> stops,
+                                  final Map<String, Long> stopsCount) {
         final AnalyzedData analyzedData = new AnalyzedData();
 
         for (String stopId : delays.keySet()) {
@@ -56,10 +64,15 @@ public class DelayService {
             outputData.setStopId(stopId);
             outputData.setX(stopCords.getX());
             outputData.setY(stopCords.getY());
+            outputData.setStopCount(stopsCount.get(stopId));
 
             analyzedData.addOutputData(outputData);
         }
 
         return analyzedData;
+    }
+
+    public AnalyzedData countDelays(String lineName) {
+        return countDelays(lineName, null, null);
     }
 }
