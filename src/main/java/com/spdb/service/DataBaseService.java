@@ -16,7 +16,8 @@ public class DataBaseService {
             "  csipdaystopping.scheduleddeparture, \n" +
             "  csipstoppoint.latitude, \n" +
             "  csipstoppoint.longitude, \n" +
-            "  csipstoppoint.loid as stopId\n" +
+            "  csipstoppoint.loid as stopId,\n" +
+            "  csipstoppoint.name as stopName\n" +
             "FROM \n" +
             "  public.csipline, \n" +
             "  public.csipdaystopping, \n" +
@@ -45,6 +46,7 @@ public class DataBaseService {
             data.setX(resultSet.getString("latitude"));
             data.setY(resultSet.getString("longitude"));
             data.setStopId(resultSet.getString("stopId"));
+            data.setStopName(resultSet.getString("stopName"));
 
             return data;
         });

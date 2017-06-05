@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Setter
-public class Cords {
+public class StoppingDetails {
     private String x, y;
+    private String stopName;
 }

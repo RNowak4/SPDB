@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class OutputData {
     private String stopId;
+    private String stopName;
     private String x,y;
     // seconds
     private long delaySum;

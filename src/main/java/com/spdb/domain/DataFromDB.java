@@ -15,4 +15,5 @@ public class DataFromDB {
     private Date scheduledDeparture;
     private Date realDeparture;
     private String lineName;
+    private String stopName;
 }
