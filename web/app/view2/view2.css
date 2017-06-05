@@ -1,0 +1,87 @@
+.search {
+    height: 60px;
+    display: flex;
+}
+
+.search__line {
+    height: 35px;
+    box-sizing: border-box;
+}
+
+.search__hour {
+    height: 35px;
+    box-sizing: border-box;
+    width: 100px;
+    margin-left: 15px;
+}
+
+.search__button {
+    height: 35px;
+    background-color: #f75c50;
+    border-radius: 10px;
+    border-width: 0px;
+    margin-left: 10px;
+}
+
+#map {
+    height: 500px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stops__title {
+    font-size: 18px;
+    text-align: center;
+}
+
+.stop {
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid grey;
+    cursor: pointer;
+}
+
+.stop--selected {
+    background-color: rgba(128, 128, 128, 0.41);
+}
+
+.stop__name:hover {
+    background-color: rgba(128, 128, 128, 0.41);
+}
+
+.stops-list {
+    height: 450px;
+    overflow-y: auto;
+}
+
+.statistics {
+    margin-top: 100px;
+    width: 500px;
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+
+.statistics__title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+.statistics-delay__label {
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+}
+
+.statistics-delay__value {
+    display: inline-block;
+    width: 48%;
+    text-align: right;
+}
+
+.content {
+    display: flex;
+}

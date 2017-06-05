@@ -1,0 +1,26 @@
+<div class="search">
+    <input type="number" class="search__line" placeholder="Wpisz numer linii" ng-model="ctrl.line"/>
+    <input type="number" ng-maxlength="2" placeholder="Godzina" class="search__hour" ng-model="ctrl.hour"/>
+    <button class="search__button" ng-click="ctrl.show()">Wyszukaj</button>
+</div>
+<div class="content">
+    <div class="stops">
+        <div class="stops__title">Lista Przystanków:</div>
+        <div class="stops__list stops-list">
+            <div class="stops-list__stop stop" ng-repeat="stop in ctrl.stops track by $index"
+                 ng-click="ctrl.select(stop)"
+                 ng-class="{'stop--selected' : ctrl.selected === stop}">
+                <div class="stop__name" ng-bind="stop.stopName"></div>
+            </div>
+        </div>
+    </div>
+    <div class="statistics">
+        <div class="statistics__title" ng-bind="ctrl.selected.stopName"></div>
+        <div class="statistics__delay statistics-delay">
+            <div class="statistics-delay__label" ng-if="ctrl.searched">Średnie opóźnienie</div>
+            <div class="statistics-delay__value" ng-bind="ctrl.currentDelay()"></div>
+        </div>
+
+    </div>
+    <div id="map"></div>
+</div>
