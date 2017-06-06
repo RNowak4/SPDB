@@ -15,6 +15,7 @@ angular
         let infos = [];
         let points = [];
         let searched = false;
+        self.selected = null;
         // pointsService.all()
         //     .then(newPoints => points = newPoints);
         // initMap();
@@ -31,14 +32,21 @@ angular
         };
         // self.select(self.stops[0]);
         self.currentDelay = () => {
+            if(self.selected == null) {
+                return;
+            }
             const seconds = parseInt((self.selected.delaySum / self.selected.stopCount) / 1000);
             const minutes = parseInt(seconds / 60);
             return `${minutes} m ${seconds % 60} s`;
         };
         self.show = () => {
-            const points = pointsService.all(self.line, self.hour);
-            initMap();
-            searched = true;
+            self.stops = [];
+            points = pointsService.all(self.line, self.hour).then(function(data) {
+                self.stops = data;
+                points = data;
+                initMap();
+                searched = true;
+            });
         };
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -63,7 +71,7 @@ angular
             const infowindow = new google.maps.InfoWindow({
                 content: contentString
             });
-            console.log({lat: parseFloat(stop.y), lng: parseFloat(stop.x)})
+            // console.log({lat: parseFloat(stop.y), lng: parseFloat(stop.x)})
             const myLatLng = {lat: parseFloat(stop.x), lng: parseFloat(stop.y)};
 
             const marker = new google.maps.Marker({
@@ -79,6 +87,9 @@ angular
         }
 
         function closePreviousInfoWindow() {
+            if(self.selected == null) {
+                return;
+            }
             let info = infos[self.selected.stopId];
             info.infowindow.close();
         }
@@ -91,5 +102,4 @@ angular
                 }
             });
         }
-
     });

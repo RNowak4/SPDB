@@ -1,5 +1,6 @@
 package com.spdb.controller;
 
+import com.spdb.domain.OutputData;
 import com.spdb.exception.NoSuchCachedDataException;
 import com.spdb.domain.AnalyzedData;
 import com.spdb.service.DelayService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController(value = "/delay")
 public class DelayController {
@@ -23,11 +26,11 @@ public class DelayController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/delay")
-    public AnalyzedData countDelaysForLine(@RequestParam("line") final String lineName,
-                                           @RequestParam("hour") final int hour) throws NoSuchCachedDataException {
+    public List<OutputData> countDelaysForLine(@RequestParam("line") final String lineName,
+                                               @RequestParam("hour") final int hour) throws NoSuchCachedDataException {
 
         return cachedData.getCachedData(new CachedDataKey(lineName, hour))
-                .map(data -> data)
+                .map(AnalyzedData::getOutputDataList)
                 .orElseThrow(NoSuchCachedDataException::new);
     }
 }

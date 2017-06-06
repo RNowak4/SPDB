@@ -449,8 +449,9 @@ function PointsService($http) {
     ];
 
     self.all = (line, hour) => {
-        return $http.get(`http://localhost:8080/limk/${line}/${hour}`)
-            .then(response => response.data);
-        // return points;
+        return $http.get(`http://localhost:9098/delay?line=${line}&hour=${hour}`)
+            .then(function(response) {
+                return response.data;
+            });
     };
 }
